@@ -33,15 +33,15 @@ $ rails new grape_api_guide --api -T
 ### Gems that we will use
 > A good practice in terms of adding gems to your gemfile is to specify the version. You can find that here [rubygems.org](https://rubygems.org/)
 
-Grape gems
+#### Grape gems
 
-[Grape](https://github.com/ruby-grape/)
+[Grape](https://github.com/ruby-grape/): Explained above.
 
 [Grape Entity](https://github.com/ruby-grape/grape-entity): With Grape-Entity we could handle which attribute we would like to display in our API according to our models.
 
 [Grape On Rails Routes](https://github.com/syedmusamah/grape_on_rails_routes): Very useful gem to visualize API routes.
 
-TDD gems
+#### TDD gems
 
 [RSpec](https://github.com/rspec/rspec-rails): For testing purposes we will use RSpec. The basic idea behind this concept is that of Test Driven Development where the tests are written first and the development is based on writing just enough code that will fulfill those tests followed by refactoring. 
 
