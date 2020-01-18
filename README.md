@@ -517,16 +517,16 @@ POST  |  /api/:version/customers/orders(.json)  |  v1  |  Create a order.
 
 #### Order entity
 
-If you tried to create a new flow it should works so far but you can’t display book’s flows yet when you go to http://localhost:3000/api/v1/books/1.
-To achieve this result we need to add a flow entity
+If you tried to create a new order it should works so far but you can't display customers orders yet when you go  to  http://localhost:3000/api/v1/customers/1.
+To achieve this result we need to add a order entity
 ```bash
-touch app/api/book_store/entities/flow.rb
+touch app/api/ebye/entities/order.rb
 ```
 
 ```ruby
 module Ebye
     module Entities
-        class Flow < Grape::Entity
+        class Order < Grape::Entity
             expose :name
             expose :shipped
             expose :delivered
@@ -565,7 +565,7 @@ Now if you test http://localhost:3000/api/v1/customers/1 you should get somethin
 
 Now if we search for all customers, we are displaying also all him orders, and maybe we don't want to do that. We can fix this creating an Index Entity.
 ```bash
-touch app/api/book_store/entities/index.rb
+touch app/api/ebye/entities/index.rb
 ```
 ```ruby
 module Ebye
@@ -585,3 +585,8 @@ present customers, with: Ebye::Entities::Index
 
 Now we are getting what we want from each path, only name and adress on /customers and name, adress and orders on /customers/:id
 
+### Create an order via Postman
+
+We created before the POST route for orders nested on a specific customer but we didn't tried yet to make a petition on it.
+
+![Postman](https://i.gyazo.com/ab7a1a67cedf045f792734bb75dace35.png)
