@@ -587,10 +587,11 @@ Now we are getting what we want from each path, only name and adress on /custome
 
 ### Create an order via Postman
 
-We created before the POST route for orders nested on a specific customer but we didn't tried yet to make a petition on it.
+We created the POST route for orders nested on a specific customer but we didn't tried yet to make a petition on it. Let's try it with postman.
 
-![Postman](https://i.gyazo.com/ab7a1a67cedf045f792734bb75dace35.png)
+![Postman](https://i.gyazo.com/cdb705c6f492137d0d274b2a7036e696.png)
 
+This should add a new order to our DB.
 
 
 
