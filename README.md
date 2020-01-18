@@ -1,17 +1,17 @@
 # Basic usage and example of making an API with Grape
 
-The point of this project is to learn how to use [Grape](https://github.com/ruby-grape/), define and work with the related tools, and as documentation for anyone who wants to understand how the core of the [main project](https://github.com/assimovt/badigeeks-api) will work. This guide is also mentioning how to work with models and RSpec, and will serve as a reminder of good practices and steps to follow. 
+The point of this project is to learn how to use [Grape](https://github.com/ruby-grape/), work and define its related tools, and as documentation for anyone who wants to understand how the core of the [main project](https://github.com/assimovt/badigeeks-api) will work. This guide is also mentioning how to work with models and RSpec, and will serve as a reminder of good practices and steps to follow. 
 
-Good practices that I'll recommend following this project and any project:
+Good practices that I'll recommend following this project and any project (and as a reminder for myself):
 - Always write first the (failure) tests.
-- Try to write a code that explains itself, with a modular and single responsibility principle (SRP) based structure
+- Try to write a code that explains itself, with a modular and single responsibility principle (SRP) based structure.
 - Working and implementing little and functional steps everytime.
 - After that, commit and push with a clear description with that what you done.
 
-> This readme.md could also be as example to how to document with Markdown a readme file
+> This readme.md could also be as example to how to document the main project readme with Markdown
 
 ## What is Grape?
-[Grape](https://github.com/ruby-grape/) is a API framework for ruby language, it is used to write RESTful API for the existing web application that is already written in Rails or Sinatra framework. It has inbuilt option like common convention, multiple data/response format, versioning etc.
+[Grape](https://github.com/ruby-grape/) is an API framework for ruby language, it is used to write RESTful API for the existing web application that is already written in Rails or Sinatra framework. It has inbuilt option like common convention, multiple data/response format, versioning etc.
 
 ### Adventages of Grape in order to make an **API with Rails**
 
@@ -32,7 +32,7 @@ $ rails new grape_api_guide --api -T
 ```
 > You can indicate a database adding --database=postgresql , for more options: ```$ rails new --help ```
 
-### Gems that we will use
+### Gems that I will use
 > A good practice in terms of adding gems to your gemfile is to specify the version. You can find that here [rubygems.org](https://rubygems.org/)
 
 #### Grape gems
@@ -253,18 +253,12 @@ First step is to create our API folder within app and also a folder with the nam
 ```bash
 $ mkdir -p app/api/ebye
 ```
-We need to tell to our application where our API will be written, so we will add on our ```àpplication.rb```
+We need to tell to our application where our API will be written, so we will add on ```application.rb```
 
 ```ruby
 config.paths.add File.join(‘app’, ‘api’), glob: File.join(‘**’, ‘*.rb’)
 config.autoload_paths += Dir[Rails.root.join(‘app’, ‘api’, ‘*’)]
 ```
-
-Adding in our ```routes.rb``` a route to access to API from our app.
- ```ruby 
-  mount Ebye::Base => ‘/’
-```
-
 Our API needs a main file where we will declare the paths, so we need a base.rb file which will find inside ebye folder.
 
 ```ruby
@@ -277,3 +271,44 @@ module Ebye
 end
 ```
 
+Adding in our ```routes.rb``` a route to access to API from our app.
+
+```ruby 
+  mount Ebye::Base => '/'
+```
+This means that the API starting point is our base.rb
+
+### Making our first endpoint
+
+We will create the folder V1 which will contain our customers.rb file mentioned above.
+
+```bash
+$ mkdir -p app/api/ebye/v1 && touch app/api/ebye/v1/customers.rb
+```
+
+```ruby
+# on app/api/ebye/v1/customers.rb
+module Ebye
+  module V1
+    class Customers < Grape::API
+      # With v1 we specify the version of our API
+      version 'v1', using: :path
+      # Tell our API that we allow only JSON
+      format :json
+      # We prefix the path of our API. Remind you, in route.rb we set route like that mount Ebye::Base => '/'
+      # With this prefix we could access to our API instead '/api'
+      prefix :api
+      # Indicates customers routes
+      resource :customers do
+        # Description of our method and what we are expecting
+        desc 'Return list of customers'
+        get do
+          # Method to return all customers
+          customers = Customer.all
+          present customers
+        end
+      end
+    end
+  end
+end
+```

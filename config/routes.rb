@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  mount Ebye::Base => ‘/’
+  mount Ebye::Base => '/'
 end
