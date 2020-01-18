@@ -337,7 +337,7 @@ end
 ```
 The tests should fail! Thats because we didn't created the endpoint yet. Lets do it.
 
-#### Making the API for customers
+### Making the API for customers
 
 We will create the folder V1 which will contain our customers.rb file mentioned above. In this file we'll define some configurations for the api customers. 
 
@@ -379,7 +379,7 @@ You can also see the endpoint in the terminal by doing
 $ rails grape:routes
 ```
 
-### Handle entities
+#### Handle entities
 
 Time to handle entities with grape. Entities allows to filter data from our models to choose which attributes we would like to display. Let’s clean the response we get on postman by creating entities folder in our API.
 
@@ -419,3 +419,59 @@ The output now should be something like this, without showing the id, created_at
     }
   ]
 ```
+
+### API for get a single Customer
+
+First of all we should test this feature adding this code on our ```customer_spec.rb```
+
+```ruby
+# GET /customers/:id ####################################
+describe 'GET /customers/:id' do
+    before { get "/api/v1/customers/#{customer_id}" }
+
+    context 'when the record exists' do
+
+        it 'returns the customer' do
+            expect(json).not_to be_empty
+            expect(json['id']).to eq(customer_id)
+        end
+
+        it 'returns status code 200' do
+            expect(response).to have_http_status(200)
+        end
+    end
+
+    context 'when the record does not exist' do
+        let(:customer_id) { 100 }
+
+        it 'returns status code 404' do
+            expect(response).to have_http_status(404)
+        end
+
+        it 'returns a not found message' do
+            expect(response.body).to match("{\"message\":\"Couldn't find customer with 'id'=100\"}")
+        end
+    end
+end
+```
+
+Now, in order to make this tests look green, we should write the endpoint on the customer API file
+
+```ruby
+desc 'Return a specific customer'
+# route_param :id Allows us to define namespace to pick up a customer thanks to its id
+route_param :id do
+    get do
+        customer = Customer.find(params[:id])
+        present customer, with: Ebye::Entities::Customer
+    end
+end
+```
+
+Now if we check our routes with ```rails grape:routes``` you will see the new one
+
+```bash
+GET  |  /api/:version/customers(.json)      |  v1  |  Return list of customers
+GET  |  /api/:version/customers/:id(.json)  |  v1  |  Return a specific customer
+```
+
