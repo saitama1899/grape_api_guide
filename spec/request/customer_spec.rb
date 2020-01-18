@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe 'products API', type: :request do
+RSpec.describe 'customer API', type: :request do
 
-    let!(:customers) { create_list(:customer, 10) }
+    let!(:customers) { create_list(:customer, 15) }
 
     # GET /customers #######################
     describe 'GET /customers' do
@@ -10,8 +10,8 @@ RSpec.describe 'products API', type: :request do
         before { get '/api/v1/customers' }
 
         it 'returns all customers' do
-            expect(JSON.parse(response.body)).not_to be_empty
-            expect(JSON.parse(response.body).size).to eq(10)
+            expect(json).not_to be_empty
+            expect(json.size).to eq(15)
         end
 
         it 'returns status code 200' do

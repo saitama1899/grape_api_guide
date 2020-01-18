@@ -65,7 +65,7 @@ gem 'grape_on_rails_routes'
 
 group :development, :test do
   gem 'rspec-rails'
-  gem 'factory_bot'
+  gem 'factory_bot_rails'
   gem 'faker'
   gem 'shoulda-matchers'
   gem 'database_cleaner'
@@ -290,7 +290,54 @@ We need to create the folder request in order to write there our custom tests.
 $ mkdir -p spec/request && touch spec/request/customer_spec.rb
 ```
 
-We will create the folder V1 which will contain our customers.rb file mentioned above. In this file we will define some configurations for the api customers. 
+We are also creating a support folder wich will contain helper files and methods to make our code modular and easier to read.
+
+```bash
+$ mkdir -p spec/support && touch spec/support/request_spec_helper.rb
+```
+
+```ruby
+module RequestSpecHelper
+    def json
+      JSON.parse(response.body)
+    end
+end
+```
+
+In order to be able to use this methods, we must add the following line to our ```rails_helper.rb```
+```ruby
+Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
+```
+
+Then we are ready to make the first API test for customers. We'll initialize test data thanks to our factory bot previous configuration.
+
+```ruby
+# on customer_spec.rb
+require 'rails_helper'
+
+RSpec.describe 'customer API', type: :request do
+
+    let!(:customers) { create_list(:customer, 15) }
+
+    # GET /customers #######################
+    describe 'GET /customers' do
+        # make HTTP get request before each example
+        before { get '/api/v1/customers' }
+
+        it 'returns all customers' do
+            expect(json).not_to be_empty
+            expect(json.size).to eq(15)
+        end
+
+        it 'returns status code 200' do
+            expect(response).to have_http_status(200)
+        end
+    end
+end
+```
+The tests should fail! Thats because we didn't created the endpoint yet. Lets do it.
+
+We will create the folder V1 which will contain our customers.rb file mentioned above. In this file we'll define some configurations for the api customers. 
 
 ```bash
 $ mkdir -p app/api/ebye/v1 && touch app/api/ebye/v1/customers.rb
@@ -323,7 +370,7 @@ module Ebye
 end
 ```
 
-We finished our first endpoint. Using postman you can test your API and should return all customers created before on seeds.rb
+Our first endpoint is finished. Using postman, you can test your API and should return all customers created before on seeds.rb . 
 
 You can also see the endpoint in the terminal by doing
 ```bash
