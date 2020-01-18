@@ -425,6 +425,9 @@ The output now should be something like this, without showing the id, created_at
 First of all we should test this feature adding this code on our ```customer_spec.rb```
 
 ```ruby
+
+let(:customer_id) { customers.first.id }
+
 # GET /customers/:id ####################################
 describe 'GET /customers/:id' do
     before { get "/api/v1/customers/#{customer_id}" }
@@ -475,3 +478,37 @@ GET  |  /api/:version/customers(.json)      |  v1  |  Return list of customers
 GET  |  /api/:version/customers/:id(.json)  |  v1  |  Return a specific customer
 ```
 
+You can test now this route on postman to see the magic works! http://localhost:3000/api/v1/customers/7
+
+### Adding orders to a customer
+
+We need to nested order into customer resource beacuse each customer has many orders. We should add this code inside the ```resource :customers do``` function in our customers.rb API
+
+```ruby
+# We create our route to create a new order
+resource :orders do
+    desc 'Create a order.'
+    # We set order params expected and allowed
+    params do
+        requires :order, type: Hash do
+            requires :name, type: String, desc: 'Name of the Order.'
+            requires :shipped, type: Boolean, desc: 'If shipped or not.'
+            requires :delivered, type: Boolean, desc: 'If delivered or not.'
+        end
+    end
+    # We use a post request to create a new order and after 
+    # it's just a classic way to create an instance inside nested resource
+    post do
+        @customer = Customer.find(params[:id])
+        @order = Order.new(params[:order])
+        @order = @customer.orders.create!(params[:order])
+    end
+end   
+```
+
+```rails grape:routes```
+```bash
+GET  |  /api/:version/customers(.json)      |  v1  |  Return list of customers
+GET  |  /api/:version/customers/:id(.json)  |  v1  |  Return a specific customer
+POST  |  /api/:version/customers/orders(.json)  |  v1  |  Create a order.
+```

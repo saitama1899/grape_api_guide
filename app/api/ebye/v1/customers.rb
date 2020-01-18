@@ -27,6 +27,23 @@ module Ebye
                         present customer, with: Ebye::Entities::Customer
                     end
                 end
+                
+                resource :orders do
+                    desc 'Create a order.'
+                    params do
+                        requires :order, type: Hash do
+                            requires :name, type: String, desc: 'Name of the Order.'
+                            requires :shipped, type: Boolean, desc: 'If shipped or not.'
+                            requires :delivered, type: Boolean, desc: 'If delivered or not.'
+                        end
+                    end
+                    post do
+                        @customer = Customer.find(params[:id])
+                        @order = Order.new(params[:order])
+                        @order = @customer.flows.create!(params[:order])
+                        # @customer.update(stock: @order.newStock)
+                    end
+                end               
             end
         end
     end
