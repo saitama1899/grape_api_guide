@@ -4,6 +4,7 @@ The point of this project is to learn how to use grape, define its tools, and as
 
 Good practices that I'll recommend following this project and any project:
 - Always write first the (failure) tests.
+- Try to write a code that explains itself, with a modular and single responsibility principle (SRP) based structure
 - Working and implementing little and functional steps everytime.
 - After that, commit and push with a clear description with that what you done.
 
@@ -133,17 +134,14 @@ $ rails db:migrate RAILS_ENV=test
 ### Model specs
 
 Following the TDD methodology, we should write the model specs first
+> This should work as a kick example on how to work with TDD
 
 ```ruby
 # on spec/models/customer_spec.rb
 require 'rails_helper'
 
 RSpec.describe Customer, type: :model do
-  # Association test
-  # ensure Customer model has a 1:m relationship with the Order model and delets on cascade
   it { should have_many(:orders).dependent(:destroy) }
-  # Validation tests
-  # ensure columns are present before saving
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:adress) }
 end
@@ -152,11 +150,9 @@ end
 require 'rails_helper'
 
 RSpec.describe Order, type: :model do
-  # Association test
-  # ensure an order record belongs to a single customer record
+
   it { should belong_to(:customer) }
-  # Validation test
-  # ensure column name is present before saving
+
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:shipped) }
   it { should validate_presence_of(:delivered) }
@@ -169,5 +165,24 @@ rspec
 ```
 
 We need to validate the presence of that fields on models
+
+```ruby
+# on models/customer.rb
+class Customer < ApplicationRecord
+  has_many :orders, dependent: :destroy
+  validates_presence_of :name, :adress
+end
+
+# on models/order.rb
+class Order < ApplicationRecord
+  belongs_to :customer
+  validates_presence_of :name
+  validates_presence_of :shipped
+  validates_presence_of :delivered
+end
+```
+Running rspec should pass the validations test
+
+
 
 
