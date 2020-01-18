@@ -120,3 +120,54 @@ RSpec.configure do |config|
 
 end
 ```
+### Making the models
+
+For this guide I'll work with 2 models, on a 1:M relationship. One *Customer* has many *Orders* and one *Order* belongs to a single *Customer*.
+
+```bash
+$ rails g model Customer name:string adress:string
+$ rails g model Order name:string shipped:boolean delivered:boolean customer:references
+$ rails db:migrate RAILS_ENV=test
+```
+
+### Model specs
+
+Following the TDD methodology, we should write the model specs first
+
+```ruby
+# on spec/models/customer_spec.rb
+require 'rails_helper'
+
+RSpec.describe Customer, type: :model do
+  # Association test
+  # ensure Customer model has a 1:m relationship with the Order model and delets on cascade
+  it { should have_many(:orders).dependent(:destroy) }
+  # Validation tests
+  # ensure columns are present before saving
+  it { should validate_presence_of(:name) }
+  it { should validate_presence_of(:adress) }
+end
+
+# on spec/models/order_spec.rb
+require 'rails_helper'
+
+RSpec.describe Order, type: :model do
+  # Association test
+  # ensure an order record belongs to a single customer record
+  it { should belong_to(:customer) }
+  # Validation test
+  # ensure column name is present before saving
+  it { should validate_presence_of(:name) }
+  it { should validate_presence_of(:shipped) }
+  it { should validate_presence_of(:delivered) }
+end
+```
+Running rspec should fail
+
+```
+rspec
+```
+
+We need to validate the presence of that fields on models
+
+
