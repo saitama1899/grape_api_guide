@@ -256,8 +256,8 @@ $ mkdir -p app/api/ebye
 We need to tell to our application where our API will be written, so we will add on ```application.rb```
 
 ```ruby
-config.paths.add File.join(‘app’, ‘api’), glob: File.join(‘**’, ‘*.rb’)
-config.autoload_paths += Dir[Rails.root.join(‘app’, ‘api’, ‘*’)]
+config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
+config.autoload_paths += Dir[Rails.root.join('app', 'api/ebye/v1', '*')]
 ```
 Our API needs a main file where we will declare the paths, so we need a base.rb file which will find inside ebye folder.
 
@@ -265,7 +265,7 @@ Our API needs a main file where we will declare the paths, so we need a base.rb 
 # on api/ebye/base.rb
 module Ebye
     class Base < Grape::API
-        mount Ebye::V1::Customer 
+        mount Ebye::V1::Customers
         # This line above is the path to find our API, we will write all our API methods inside a Customers.rb
     end
 end
@@ -312,3 +312,11 @@ module Ebye
   end
 end
 ```
+
+We finished our first endpoint. Using postman you can test your API and should return all customers created before on seeds.rb
+
+You can also see the endpoint in the terminal by doing
+```bash
+$ rails grape:routes
+```
+
