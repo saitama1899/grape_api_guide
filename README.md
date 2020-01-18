@@ -260,3 +260,20 @@ config.paths.add File.join(‘app’, ‘api’), glob: File.join(‘**’, ‘*
 config.autoload_paths += Dir[Rails.root.join(‘app’, ‘api’, ‘*’)]
 ```
 
+Adding in our ```routes.rb``` a route to access to API from our app.
+ ```ruby 
+  mount Ebye::Base => ‘/’
+```
+
+Our API needs a main file where we will declare the paths, so we need a base.rb file which will find inside ebye folder.
+
+```ruby
+# on api/ebye/base.rb
+module Ebye
+    class Base < Grape::API
+        mount Ebye::V1::Customer 
+        # This line above is the path to find our API, we will write all our API methods inside a Customers.rb
+    end
+end
+```
+
