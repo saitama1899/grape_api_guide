@@ -597,13 +597,18 @@ We created before the POST route for orders nested on a specific customer but we
 
 
 
-
-> # References used to make this guide
+.
+> ### References used to make this guide
 >
 > Gems official docs (a lot)
 > [My TDD API simple CRUD lecture exercice](https://github.com/saitama1899/productos-api)
+>
 > [My portfolio Rails christmas project](https://github.com/saitama1899/rails-portfolio)
+>
 > [TDD API with OAhut, JWT...](https://github.com/JavierRodriguez78/todoappruby/tree/develop)
+>
 > [build-a-basic-api-with-grape](https://medium.com/@clementrollon/build-a-basic-api-with-grape-api-grape-entity-part-1-5d5fa1cf38db)
+>
 > [build-a-restful-json-api](https://scotch.io/tutorials/build-a-restful-json-api-with-rails-5-part-one)
+>
 > [how-to-build-a-rest-like-api-in-ruby](https://www.toptal.com/ruby/grape-gem-tutorial-how-to-build-a-rest-like-api-in-ruby)
