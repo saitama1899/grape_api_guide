@@ -1,8 +1,8 @@
-# Basic usage and example of making an API with Grape and Rails
+# Basic usage and example of making an API with Grape
 
-> The meaning of this project is to learn how to use grape, define its tools, and as documentation for anyone who wants to understand how the core of the main project will work.
+> The point of this project is to learn how to use grape, define its tools, and as documentation for anyone who wants to understand how the core of the [main project](https://github.com/assimovt/badigeeks-api) will work.
 >
-> This Readme.md could also be as example to how to document with Markdown a Readme file
+> This readme.md could also be as example to how to document with Markdown a readme file
 
 ## Adventages of Grape in terms to make an *API with Rails*
 
