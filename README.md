@@ -160,8 +160,8 @@ end
 ```
 Running rspec should fail
 
-```
-rspec
+```bash
+$ rspec
 ```
 
 We need to validate the presence of that fields on models
@@ -183,6 +183,38 @@ end
 ```
 Running rspec should pass the validations test
 
+### Test data
 
+We can populate database filling ```seeds.rb```
 
+```ruby
+require 'database_cleaner'
+# This cleans after each rails db:seeds
+DatabaseCleaner.clean_with(:truncation)
+
+10.times do
+    Customer.create!(
+        name: Faker::TvShows::GameOfThrones.character, 
+        adress: Faker::TvShows::GameOfThrones.city
+    )
+end
+
+customer_ids = Customer.ids
+
+30.times do
+    Order.create!(
+        customer_id: customer_ids.sample, 
+        name: Faker::Commerce.product_name, 
+        shipped: true,
+        delivered: true
+    )
+end
+```
+
+And running then 
+```bash
+$ rails db:seeds
+```
+
+You can play with the DB through the rails console ````rails c```
 
