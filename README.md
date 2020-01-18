@@ -3,7 +3,7 @@
 The point of this project is to learn how to use grape, define its tools, and as documentation for anyone who wants to understand how the core of the [main project](https://github.com/assimovt/badigeeks-api) will work.
 
 Good practices that I'll recommend following this project and any project:
-- Always try to write first the tests.
+- Always write first the (failure) tests.
 - Working and implementing little and functional steps everytime.
 - After that, commit and push with a clear description with that what you done.
 
@@ -31,18 +31,29 @@ $ rails new grape_api_guide --api -T
 > You can indicate a database adding --database=postgresql , for more options: ```$ rails new --help ```
 
 ### Gems that we will use
-> The best practice in terms of adding gems to your gemfile is to specify the version. You can find it on [rubygems.org](https://rubygems.org/)
+> A good practice in terms of adding gems to your gemfile is to specify the version. You can find that here [rubygems.org](https://rubygems.org/)
 
-- [Grape](https://github.com/ruby-grape/)
+Grape gems
 
-- [Grape-Entity](https://github.com/ruby-grape/grape-entity): With Grape-Entity we could handle which attribute we would like to display in our API according to our models.
+[Grape](https://github.com/ruby-grape/)
 
-- [Grape On Rails Routes](https://github.com/syedmusamah/grape_on_rails_routes): Very useful gem to visualize API routes.
+[Grape Entity](https://github.com/ruby-grape/grape-entity): With Grape-Entity we could handle which attribute we would like to display in our API according to our models.
 
-- [Faker](https://github.com/faker-ruby/faker): Easy and quickly way to populate fake data in DB
+[Grape On Rails Routes](https://github.com/syedmusamah/grape_on_rails_routes): Very useful gem to visualize API routes.
+
+TDD gems
+
+[RSpec](https://github.com/rspec/rspec-rails): For testing purposes we will use RSpec. The basic idea behind this concept is that of Test Driven Development where the tests are written first and the development is based on writing just enough code that will fulfill those tests followed by refactoring. 
+
+[Faker](https://github.com/faker-ruby/faker): Easy and quickly way to populate fake data in DB.
+
+[Facotry Bot](https://github.com/thoughtbot/factory_bot): Is a fixtures replacement with a straightforward definition syntax, support for multiple build strategies. 
+
+[Shoulda Matchers](https://github.com/thoughtbot/shoulda-matchers): Provides RSpec with additional matchers that if written by hand would be harder to write.
+
+[Database Cleaner](https://github.com/DatabaseCleaner/database_cleaner): Cleans our test database to ensure a clean state in each test suite.
 
 ```bash
-[...]
 
 gem 'grape'
 gem 'grape-entity'
@@ -52,7 +63,10 @@ gem 'grape_on_rails_routes'
 
 group :development, :test do
   gem 'rspec-rails'
+  gem 'factory_bot'
   gem 'faker'
+  gem 'shoulda-matchers'
+  gem 'database_cleaner'
 end
 
 ```
