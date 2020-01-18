@@ -506,9 +506,82 @@ resource :orders do
 end   
 ```
 
+Now we have create a new route which allows us to create new order for a specific customer.
+
 ```rails grape:routes```
 ```bash
 GET  |  /api/:version/customers(.json)      |  v1  |  Return list of customers
 GET  |  /api/:version/customers/:id(.json)  |  v1  |  Return a specific customer
 POST  |  /api/:version/customers/orders(.json)  |  v1  |  Create a order.
 ```
+
+#### Order entity
+
+If you tried to create a new flow it should works so far but you can’t display book’s flows yet when you go to http://localhost:3000/api/v1/books/1.
+To achieve this result we need to add a flow entity
+```bash
+touch app/api/book_store/entities/flow.rb
+```
+
+```ruby
+module Ebye
+    module Entities
+        class Flow < Grape::Entity
+            expose :name
+            expose :shipped
+            expose :delivered
+        end
+    end
+end
+```
+
+We need to add a new line inside customer entity to display customer orders.
+```ruby
+expose :orders, using: Ebye::Entities::Order
+```
+
+Now if you test http://localhost:3000/api/v1/customers/1 you should get something like
+
+```json
+{
+    "name": "Gerald Gower",
+    "adress": "Qarth",
+    "orders": [
+        {
+            "name": "Incredible Aluminum Car",
+            "shipped": true,
+            "delivered": true
+        },
+        {
+            "name": "Heavy Duty Linen Gloves",
+            "shipped": true,
+            "delivered": true
+        }
+    ]
+}
+```
+
+#### Entity for index Customer
+
+Now if we search for all customers, we are displaying also all him orders, and maybe we don't want to do that. We can fix this creating an Index Entity.
+```bash
+touch app/api/book_store/entities/index.rb
+```
+```ruby
+module Ebye
+    module Entities
+        class Index < Grape::Entity
+            expose :name
+            expose :adress
+        end
+    end
+end
+```
+
+So we need to change in our customers.rb with the correct path to reach the correct entity (index.rb)
+```ruby
+present customers, with: Ebye::Entities::Index
+```
+
+Now we are getting what we want from each path, only name and adress on /customers and name, adress and orders on /customers/:id
+

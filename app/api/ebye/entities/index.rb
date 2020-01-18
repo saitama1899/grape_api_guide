@@ -1,9 +1,8 @@
 module Ebye
     module Entities
-        class Customer < Grape::Entity
+        class Index < Grape::Entity
             expose :name
             expose :adress
-            expose :orders, using: Ebye::Entities::Order
         end
     end
 end

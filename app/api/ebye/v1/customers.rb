@@ -16,7 +16,7 @@ module Ebye
                 get do
                     # Method to return all customers
                     customers = Customer.all
-                    present customers, with: Ebye::Entities::Customer
+                    present customers, with: Ebye::Entities::Index
                 end
 
                 desc 'Return a specific customer'
@@ -27,7 +27,7 @@ module Ebye
                         present customer, with: Ebye::Entities::Customer
                     end
                 end
-                
+
                 resource :orders do
                     desc 'Create a order.'
                     params do
@@ -40,8 +40,7 @@ module Ebye
                     post do
                         @customer = Customer.find(params[:id])
                         @order = Order.new(params[:order])
-                        @order = @customer.flows.create!(params[:order])
-                        # @customer.update(stock: @order.newStock)
+                        @order = @customer.orders.create!(params[:order])
                     end
                 end               
             end
