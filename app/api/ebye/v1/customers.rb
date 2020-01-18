@@ -26,23 +26,22 @@ module Ebye
                         customer = Customer.find(params[:id])
                         present customer, with: Ebye::Entities::Customer
                     end
-                end
-
-                resource :orders do
-                    desc 'Create a order.'
-                    params do
-                        requires :order, type: Hash do
-                            requires :name, type: String, desc: 'Name of the Order.'
-                            requires :shipped, type: Boolean, desc: 'If shipped or not.'
-                            requires :delivered, type: Boolean, desc: 'If delivered or not.'
+                    resource :orders do
+                        desc 'Create a order.'
+                        params do
+                            requires :order, type: Hash do
+                                requires :name, type: String, desc: 'Name of the Order.'
+                                requires :shipped, type: Boolean, desc: 'If shipped or not.'
+                                requires :delivered, type: Boolean, desc: 'If delivered or not.'
+                            end
                         end
-                    end
-                    post do
-                        @customer = Customer.find(params[:id])
-                        @order = Order.new(params[:order])
-                        @order = @customer.orders.create!(params[:order])
-                    end
-                end               
+                        post do
+                            @customer = Customer.find(params[:id])
+                            @order = Order.new(params[:order])
+                            @order = @customer.orders.create!(params[:order])
+                        end
+                    end   
+                end
             end
         end
     end

@@ -482,7 +482,7 @@ You can test now this route on postman to see the magic works! http://localhost:
 
 ### Adding orders to a customer
 
-We need to nested order into customer resource beacuse each customer has many orders. We should add this code inside the ```resource :customers do``` function in our customers.rb API
+We need to nested order into customer resource beacuse each customer has many orders. We should add this code inside the ```resource :customers do [...] route_param :id do``` function in our customers.rb API
 
 ```ruby
 # We create our route to create a new order
@@ -512,7 +512,7 @@ Now we have create a new route which allows us to create new order for a specifi
 ```bash
 GET  |  /api/:version/customers(.json)      |  v1  |  Return list of customers
 GET  |  /api/:version/customers/:id(.json)  |  v1  |  Return a specific customer
-POST  |  /api/:version/customers/orders(.json)  |  v1  |  Create a order.
+POST  |  /api/:version/customers/:id/orders(.json)  |  v1  |  Create a order.
 ```
 
 #### Order entity
