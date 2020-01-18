@@ -593,6 +593,7 @@ We created the POST route for orders nested on a specific customer but we didn't
 
 This should add a new order to our DB.
 
+![DB](https://i.gyazo.com/ae631b68adac6b41652e6225dd6d0f47.png)
 
 
 
