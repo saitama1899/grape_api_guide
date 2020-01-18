@@ -1,11 +1,10 @@
-# Basic usage and example for Grape API
-====================
+# Basic usage and example of making an API with Grape and Rails
+
 > The meaning of this project is to learn how to use grape, define its tools, and as documentation for anyone who wants to understand how the core of the main project will work.
 >
 > This Readme.md could also be as example to how to document with Markdown a Readme file
 
-Adventages of Grape in terms to make an *API with Rails*
---------------------
+## Adventages of Grape in terms to make an *API with Rails*
 
 - You can easily document the API with description without writing separate API document
 - Easy and standard syntax of API endpoints.
