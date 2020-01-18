@@ -1,6 +1,6 @@
 # Basic usage and example of making an API with Grape
 
-The point of this project is to learn how to use grape, define its tools, and as documentation for anyone who wants to understand how the core of the [main project](https://github.com/assimovt/badigeeks-api) will work.
+The point of this project is to learn how to use [Grape](https://github.com/ruby-grape/), define and work with the related tools, and as documentation for anyone who wants to understand how the core of the [main project](https://github.com/assimovt/badigeeks-api) will work. This guide is also mentioning how to work with models and RSpec, and will serve as a reminder of good practices and steps to follow. 
 
 Good practices that I'll recommend following this project and any project:
 - Always write first the (failure) tests.
@@ -183,7 +183,7 @@ end
 ```
 Running rspec should pass the validations test
 
-### Test data
+### Test data through seeds.rb and DB
 
 We can populate database filling ```seeds.rb```
 
@@ -216,5 +216,11 @@ And running then
 $ rails db:seeds
 ```
 
-You can play with the DB through the rails console ````rails c```
+You can play with the DB instances through the rails console ```$ rails c```
+
+### Test data through Factory Bot
+
+
+
+
 
