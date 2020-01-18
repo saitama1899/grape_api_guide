@@ -24,7 +24,7 @@ Good practices that I'll recommend following this project and any project:
 
 ## Usage guide
 
-#### Making the project
+### Making the project
 
 ```bash
 $ rails new grape_api_guide --api -T
@@ -76,7 +76,7 @@ end
 $ bundle install
 ```
 
-#### Configuring the proyect
+### Configuring the proyect
 
 Initialize the spec directory (where our tests will reside)
 
@@ -84,7 +84,7 @@ Initialize the spec directory (where our tests will reside)
 $ rails generate rspec:install
 ```
 
-Configure the TDD environment
+Configure the TDD environment on ```rails_helper.rb```
 
 ```ruby
 # [...]
@@ -117,6 +117,6 @@ RSpec.configure do |config|
       example.run
     end
   end
-  # [...]
+
 end
 ```
