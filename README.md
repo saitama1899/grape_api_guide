@@ -597,10 +597,11 @@ We created before the POST route for orders nested on a specific customer but we
 
 
 
-.
+
 > ### References used to make this guide
 >
 > Gems official docs (a lot)
+>
 > [My TDD API simple CRUD lecture exercice](https://github.com/saitama1899/productos-api)
 >
 > [My portfolio Rails christmas project](https://github.com/saitama1899/rails-portfolio)
