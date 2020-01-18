@@ -213,7 +213,7 @@ Then if we want, we can create instances of our models.
 
 ### Test data through seeds.rb and DB
 
-We can also populate database filling ```seeds.rb```
+We can also populate our database filling ```seeds.rb``` to test our endpoints via postaman
 
 ```ruby
 require 'database_cleaner'
@@ -309,14 +309,14 @@ In order to be able to use this methods, we must add the following line to our `
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
 ```
 
-Then we are ready to make the first API test for customers. We'll initialize test data thanks to our factory bot previous configuration.
+Then we are ready to make the first API test for customers. We can initialize test data thanks to our factory bot previous configuration.
 
 ```ruby
 # on customer_spec.rb
 require 'rails_helper'
 
 RSpec.describe 'customer API', type: :request do
-
+    # Test data
     let!(:customers) { create_list(:customer, 15) }
 
     # GET /customers #######################
@@ -336,6 +336,8 @@ RSpec.describe 'customer API', type: :request do
 end
 ```
 The tests should fail! Thats because we didn't created the endpoint yet. Lets do it.
+
+#### Making the API for customers
 
 We will create the folder V1 which will contain our customers.rb file mentioned above. In this file we'll define some configurations for the api customers. 
 
@@ -377,3 +379,43 @@ You can also see the endpoint in the terminal by doing
 $ rails grape:routes
 ```
 
+### Handle entities
+
+Time to handle entities with grape. Entities allows to filter data from our models to choose which attributes we would like to display. Let’s clean the response we get on postman by creating entities folder in our API.
+
+```bash
+mkdir -p app/api/ebye/entities && touch app/api/ebye/entities/customer.rb
+```
+
+So here we will tell to our API that only exposes the information that we want to show.
+
+```ruby
+module Ebye
+    module Entities
+        class Customer < Grape::Entity
+            expose :name
+            expose :adress
+        end
+    end
+end
+```
+
+Now, to see if this is working, we should modify this line from the last endpoint we did on our API file ```customers.rb```
+```ruby
+present customers, with: Ebye::Entities::Customer
+```
+
+The output now should be something like this, without showing the id, created_at and updated_at
+
+```json
+  [
+    {
+        "name": "Jason Lannister",
+        "adress": "Oros"
+    },
+    {
+        "name": "Willem Darry",
+        "adress": "Pentos"
+    }
+  ]
+```
