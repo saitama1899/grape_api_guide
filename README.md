@@ -220,7 +220,29 @@ You can play with the DB instances through the rails console ```$ rails c```
 
 ### Test data through Factory Bot
 
+We can make test and volatile data with Factory Bot
 
+```bash
+$ mkdir spec/factories && touch spec/factories/{customer.rb,order.rb} 
+```
+```ruby
+# on factories/customer.rb
+FactoryBot.define do
+  factory :customer do
+    title { Faker::TvShows::GameOfThrones.character }
+    adress { Faker::TvShows::GameOfThrones.city }
+  end
+end
 
+# on factories/order.rb
+FactoryBot.define do
+  factory :order do
+      name: Faker::Commerce.product_name, 
+      shipped: true,
+      delivered: true
+      customer_id nil 
+  end
+end
+```
 
 
