@@ -201,12 +201,12 @@ end
 
 # on factories/order.rb
 FactoryBot.define do
-  factory :order do
-      name: Faker::Commerce.product_name, 
-      shipped: true,
-      delivered: true
-      customer_id nil 
-  end
+    factory :order do
+        name { Faker::Commerce.product_name }
+        shipped { Faker::Boolean.boolean }
+        delivered { false }
+        customer_id nil 
+    end
 end
 ```
 Then if we want, we can create instances of our models.
@@ -280,7 +280,17 @@ This means that the API starting point is our base.rb
 
 ### Making our first endpoint
 
-We will create the folder V1 which will contain our customers.rb file mentioned above.
+Our first endpoint will be a simple GET /customers
+
+#### Tests first
+
+We need to create the folder request in order to write there our custom tests.
+
+```bash
+$ mkdir -p spec/request && touch spec/request/customer_spec.rb
+```
+
+We will create the folder V1 which will contain our customers.rb file mentioned above. In this file we will define some configurations for the api customers. 
 
 ```bash
 $ mkdir -p app/api/ebye/v1 && touch app/api/ebye/v1/customers.rb
