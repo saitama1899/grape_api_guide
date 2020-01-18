@@ -194,7 +194,7 @@ $ mkdir spec/factories && touch spec/factories/{customer.rb,order.rb}
 # on factories/customer.rb
 FactoryBot.define do
   factory :customer do
-    title { Faker::TvShows::GameOfThrones.character }
+    name { Faker::TvShows::GameOfThrones.character }
     adress { Faker::TvShows::GameOfThrones.city }
   end
 end
