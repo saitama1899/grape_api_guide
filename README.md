@@ -183,9 +183,37 @@ end
 ```
 Running rspec should pass the validations test
 
+### Test data through Factory Bot
+
+We can make test and volatile data with Factory Bot
+
+```bash
+$ mkdir spec/factories && touch spec/factories/{customer.rb,order.rb} 
+```
+```ruby
+# on factories/customer.rb
+FactoryBot.define do
+  factory :customer do
+    title { Faker::TvShows::GameOfThrones.character }
+    adress { Faker::TvShows::GameOfThrones.city }
+  end
+end
+
+# on factories/order.rb
+FactoryBot.define do
+  factory :order do
+      name: Faker::Commerce.product_name, 
+      shipped: true,
+      delivered: true
+      customer_id nil 
+  end
+end
+```
+Then if we want, we can create instances of our models.
+
 ### Test data through seeds.rb and DB
 
-We can populate database filling ```seeds.rb```
+We can also populate database filling ```seeds.rb```
 
 ```ruby
 require 'database_cleaner'
@@ -218,31 +246,17 @@ $ rails db:seeds
 
 You can play with the DB instances through the rails console ```$ rails c```
 
-### Test data through Factory Bot
+## Build the API with Grape
 
-We can make test and volatile data with Factory Bot
+First step is to create our API folder within app and also a folder with the name of our API (I named it ebye)
 
 ```bash
-$ mkdir spec/factories && touch spec/factories/{customer.rb,order.rb} 
+$ mkdir -p app/api/ebye
 ```
+We need to tell to our application where our API will be written, so we will add on our ```àpplication.rb```
+
 ```ruby
-# on factories/customer.rb
-FactoryBot.define do
-  factory :customer do
-    title { Faker::TvShows::GameOfThrones.character }
-    adress { Faker::TvShows::GameOfThrones.city }
-  end
-end
-
-# on factories/order.rb
-FactoryBot.define do
-  factory :order do
-      name: Faker::Commerce.product_name, 
-      shipped: true,
-      delivered: true
-      customer_id nil 
-  end
-end
+config.paths.add File.join(‘app’, ‘api’), glob: File.join(‘**’, ‘*.rb’)
+config.autoload_paths += Dir[Rails.root.join(‘app’, ‘api’, ‘*’)]
 ```
-
 

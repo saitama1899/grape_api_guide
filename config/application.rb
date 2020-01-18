@@ -34,4 +34,7 @@ module GrapeApiGuide
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
   end
+
+  config.paths.add File.join(‘app’, ‘api’), glob: File.join(‘**’, ‘*.rb’)
+  config.autoload_paths += Dir[Rails.root.join(‘app’, ‘api’, ‘*’)]
 end
