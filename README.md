@@ -33,19 +33,30 @@ $ rails new grape_api_guide --api -T
 ### Gems that we will use
 > The best practice in terms of adding gems to your gemfile is to specify the version. You can find it on [rubygems.org](https://rubygems.org/)
 
-[Grape](https://github.com/ruby-grape/)
+- [Grape](https://github.com/ruby-grape/)
 
-[Grape-Entity](https://github.com/ruby-grape/grape-entity): With Grape-Entity we could handle which attribute we would like to display in our API according to our models.
+- [Grape-Entity](https://github.com/ruby-grape/grape-entity): With Grape-Entity we could handle which attribute we would like to display in our API according to our models.
 
-[Grape On Rails Routes](https://github.com/syedmusamah/grape_on_rails_routes): Very useful gem to visualize API routes.
+- [Grape On Rails Routes](https://github.com/syedmusamah/grape_on_rails_routes): Very useful gem to visualize API routes.
 
-[Faker](https://github.com/faker-ruby/faker): Easy and quickly way to populate fake data in DB
+- [Faker](https://github.com/faker-ruby/faker): Easy and quickly way to populate fake data in DB
 
 ```bash
+[...]
+
 gem 'grape'
 gem 'grape-entity'
 gem 'grape_on_rails_routes'
+
+[...]
+
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'faker'
+end
+
 ```
+
 ```bash
 bundle install
 ```
