@@ -72,5 +72,5 @@ end
 ```
 
 ```bash
-bundle install
+$ bundle install
 ```
