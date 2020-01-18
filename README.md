@@ -77,7 +77,7 @@ end
 $ bundle install
 ```
 
-### Configuring the proyect
+### Configuring the project
 
 Initialize the spec directory (where our tests will reside)
 
