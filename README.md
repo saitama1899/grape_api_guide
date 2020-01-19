@@ -611,10 +611,14 @@ This should add a new order to our DB.
 >
 > [My portfolio Rails christmas project](https://github.com/saitama1899/rails-portfolio)
 >
-> [TDD API with OAhut, JWT...](https://github.com/JavierRodriguez78/todoappruby/tree/develop)
+> [Xavi's TDD API with OAhut, JWT...](https://github.com/JavierRodriguez78/todoappruby/tree/develop)
 >
 > [build-a-basic-api-with-grape](https://medium.com/@clementrollon/build-a-basic-api-with-grape-api-grape-entity-part-1-5d5fa1cf38db)
 >
 > [build-a-restful-json-api](https://scotch.io/tutorials/build-a-restful-json-api-with-rails-5-part-one)
 >
 > [how-to-build-a-rest-like-api-in-ruby](https://www.toptal.com/ruby/grape-gem-tutorial-how-to-build-a-rest-like-api-in-ruby)
+>
+> [apidock validation methods](https://apidock.com/rails/ActiveRecord/Validations/ClassMethods)
+>
+> [apidock.com](https://apidock.com/rails)
