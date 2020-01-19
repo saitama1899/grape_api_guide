@@ -177,10 +177,13 @@ end
 class Order < ApplicationRecord
   belongs_to :customer
   validates_presence_of :name
-  validates_presence_of :shipped
-  validates_presence_of :delivered
+  validates_inclusion_of :shipped, :in => [true, false]
+  validates_inclusion_of :delivered, :in => [true, false]
 end
 ```
+
+> If you want to validate the presence of a boolean field (where the real values are true and false), you will want to use validates_inclusion_of :field_name,  in: [true, false]. This is due to the way Object#blank? handles boolean values: false.blank? # => true.
+
 Running rspec should pass the validations test
 
 ### Test data through Factory Bot
@@ -233,8 +236,8 @@ customer_ids = Customer.ids
     Order.create!(
         customer_id: customer_ids.sample, 
         name: Faker::Commerce.product_name, 
-        shipped: true,
-        delivered: true
+        shipped: Faker::Boolean.boolean,
+        delivered: false
     )
 end
 ```

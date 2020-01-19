@@ -15,7 +15,7 @@ customer_ids = Customer.ids
     Order.create!(
         customer_id: customer_ids.sample, 
         name: Faker::Commerce.product_name, 
-        shipped: true,
-        delivered: true
+        shipped: Faker::Boolean.boolean,
+        delivered: false
     )
 end
